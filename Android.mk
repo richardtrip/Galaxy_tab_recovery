@@ -39,6 +39,10 @@ $(foreach board_define,$(BOARD_RECOVERY_DEFINES), \
   ) \
   )
 
+ifeq ($(BOARD_HAS_DOWNLOAD_MODE),true)
+LOCAL_CFLAGS += -DBOARD_HAS_DOWNLOAD_MODE
+endif
+
 # This binary is in the recovery ramdisk, which is otherwise a copy of root.
 # It gets copied there in config/Makefile.  LOCAL_MODULE_TAGS suppresses
 # a (redundant) copy of the binary in /system/bin for user builds.
