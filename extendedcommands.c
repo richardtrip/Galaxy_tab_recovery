@@ -507,7 +507,7 @@ void show_partition_menu()
             if (!confirm_selection(confirm_format, confirm))
                 continue;
             ui_print("Formatting %s...\n", devices[chosen_item][1]);
-            if (0 != format_device(devices[chosen_item][1]))
+            if (0 != format_volume(devices[chosen_item][1]))
                 ui_print("Error formatting %s!\n", devices[chosen_item][1]);
             else
                 ui_print("Done.\n");
