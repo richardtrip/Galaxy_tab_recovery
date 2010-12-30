@@ -275,7 +275,7 @@ int nandroid_restore(const char* backup_path, int restore_boot, int restore_syst
     {
         struct stat file_info;
         sprintf(tmp, "%s/boot.img", backup_path);
-        if(statfs(tmp, &file_info) != 0)
+        if(statfs(tmp, &file_info) == 0)
         {
             ui_print("Erasing boot before restore...\n");
             if (0 != (ret = format_device("boot")))
