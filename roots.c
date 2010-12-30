@@ -92,6 +92,15 @@ void load_volume_table() {
     printf("\n");
 }
 
+Volume* get_volumens()
+{
+    return device_volumes;
+}
+int get_num_volumes()
+{
+    return num_volumes;
+}
+
 Volume* volume_for_path(const char* path) {
     int i;
     for (i = 0; i < num_volumes; ++i) {
