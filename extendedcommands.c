@@ -79,10 +79,6 @@ char* INSTALL_MENU_ITEMS[] = {  "apply /sdcard/update.zip",
                                 "toggle signature verification",
                                 "toggle script asserts",
                                 NULL };
-#define ITEM_APPLY_SDCARD     0
-#define ITEM_CHOOSE_ZIP       1
-#define ITEM_SIG_CHECK        2
-#define ITEM_ASSERTS          3
 
 void show_install_update_menu()
 {
@@ -95,20 +91,20 @@ void show_install_update_menu()
         int chosen_item = get_menu_selection(headers, INSTALL_MENU_ITEMS, 0, 0);
         switch (chosen_item)
         {
-            case ITEM_ASSERTS:
-                toggle_script_asserts();
-                break;
-            case ITEM_SIG_CHECK:
-                toggle_signature_check();
-                break;
-            case ITEM_APPLY_SDCARD:
+            case 0:
             {
                 if (confirm_selection("Confirm install?", "Yes - Install /sdcard/update.zip"))
                     install_zip(SDCARD_UPDATE_FILE);
                 break;
             }
-            case ITEM_CHOOSE_ZIP:
+            case 1:
                 show_choose_zip_menu();
+                break;
+            case 2:
+                toggle_signature_check();
+                break;
+            case 3:
+                toggle_script_asserts();
                 break;
             default:
                 return;
