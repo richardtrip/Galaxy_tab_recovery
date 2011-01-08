@@ -761,17 +761,7 @@ void show_advanced_menu()
             case 0:
                 __reboot(LINUX_REBOOT_MAGIC1, LINUX_REBOOT_MAGIC2, LINUX_REBOOT_CMD_RESTART2, "recovery");
                 break;
-#ifdef BOARD_HAS_DOWNLOAD_MODE
             case 1:
-                __reboot(LINUX_REBOOT_MAGIC1, LINUX_REBOOT_MAGIC2, LINUX_REBOOT_CMD_RESTART2, "download");
-                break;
-#endif
-
-#ifdef BOARD_HAS_DOWNLOAD_MODE
-            case 2:
-#else
-            case 1:
-#endif
             {
                 if (0 != ensure_path_mounted("/data"))
                     break;
