@@ -734,9 +734,6 @@ void show_advanced_menu()
     };
 
     static char* list[] = { "Reboot Recovery",
-#ifdef BOARD_HAS_DOWNLOAD_MODE
-                            "Reboot Download",
-#endif
                             "Wipe Dalvik Cache",
                             "Wipe Battery Stats",
                             "Report Error",
@@ -747,6 +744,9 @@ void show_advanced_menu()
 #ifdef BOARD_HAS_SDCARD_INTERNAL
                             "Partition Internal SD Card",
 #endif
+#endif
+#ifdef BOARD_HAS_DOWNLOAD_MODE
+                            "Reboot Download",
 #endif
                             NULL
     };
@@ -761,14 +761,8 @@ void show_advanced_menu()
             case 0:
                 __reboot(LINUX_REBOOT_MAGIC1, LINUX_REBOOT_MAGIC2, LINUX_REBOOT_CMD_RESTART2, "recovery");
                 break;
+
             case 1:
-                __reboot(LINUX_REBOOT_MAGIC1, LINUX_REBOOT_MAGIC2, LINUX_REBOOT_CMD_RESTART2, "download");
-                break;
-#ifdef BOARD_HAS_DOWNLOAD_MODE
-            case 2:
-#else
-            case 1:
-#endif
             {
                 if (0 != ensure_path_mounted("/data"))
                     break;
@@ -783,28 +777,19 @@ void show_advanced_menu()
                 ui_print("Dalvik Cache wiped.\n");
                 break;
             }
-#ifdef BOARD_HAS_DOWNLOAD_MODE
-            case 3:
-#else
+
             case 2:
-#endif
             {
                 if (confirm_selection( "Confirm wipe?", "Yes - Wipe Battery Stats"))
                     wipe_battery_stats();
                 break;
             }
-#ifdef BOARD_HAS_DOWNLOAD_MODE
-            case 4:
-#else
+
             case 3:
-#endif
                 handle_failure(1);
                 break;
-#ifdef BOARD_HAS_DOWNLOAD_MODE
-            case 5:
-#else
+
             case 4:
-#endif
             {
                 ui_print("Outputting key codes.\n");
                 ui_print("Go back to end debugging.\n");
@@ -819,11 +804,8 @@ void show_advanced_menu()
                 while (action != GO_BACK);
                 break;
             }
-#ifdef BOARD_HAS_DOWNLOAD_MODE
-            case 6:
-#else
+
             case 5:
-#endif
             {
                 static char* ext_sizes[] = { "128M",
                                              "256M",
@@ -866,11 +848,8 @@ void show_advanced_menu()
                     ui_print("An error occured while partitioning your SD Card. Please see /tmp/recovery.log for more details.\n");
                 break;
             }
-#ifdef BOARD_HAS_DOWNLOAD_MODE
-            case 7:
-#else
+
             case 6:
-#endif
             {
                 ensure_path_mounted("/system");
                 ensure_path_mounted("/data");
@@ -879,11 +858,8 @@ void show_advanced_menu()
                 ui_print("Done!\n");
                 break;
             }
-#ifdef BOARD_HAS_DOWNLOAD_MODE
-            case 8:
-#else
+
             case 7:
-#endif
             {
                 static char* ext_sizes[] = { "128M",
                                              "256M",
@@ -926,6 +902,11 @@ void show_advanced_menu()
                     ui_print("An error occured while partitioning your Internal SD Card. Please see /tmp/recovery.log for more details.\n");
                 break;
             }
+#ifdef BOARD_HAS_DOWNLOAD_MODE
+            case 8:
+                __reboot(LINUX_REBOOT_MAGIC1, LINUX_REBOOT_MAGIC2, LINUX_REBOOT_CMD_RESTART2, "download");
+                break;
+#endif
         }
     }
 }
