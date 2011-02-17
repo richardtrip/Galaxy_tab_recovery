@@ -1,6 +1,8 @@
 LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
+BOARD_HAS_JANKY_BACKBUFFER := true
+
 LOCAL_SRC_FILES := graphics.c events.c resources.c
 
 LOCAL_C_INCLUDES +=\
